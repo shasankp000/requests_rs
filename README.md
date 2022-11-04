@@ -4,6 +4,8 @@ src/main.rs is for the manual tests I did while coding the src/lib.rs
 
 This repository will be used in an even larger upcoming project of mine
 
+https://crates.io/crates/requests_rs
+
 
 # Functions 
 
