@@ -1,5 +1,9 @@
 A simple library for sending GET/POST requests, included with an async file downloader. Intended for mostly small projects which need to make quick GET/POST requests or download files.
 
+src/main.rs is for the manual tests I did while coding the src/lib.rs
+
+This repository will be used in an even larger upcoming project of mine
+
 
 # Functions 
 
