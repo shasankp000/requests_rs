@@ -11,7 +11,7 @@ This repository will be used in an even larger upcoming project of mine
 >
 > Test function which sends a synchronous get request to any api and returns a response object which can be then parsed into json
 >
-> Recommended to use the requests_rs::requests::api_referencer::get_and_save_json function instead of this.
+ Recommended to use the ```requests_rs::requests::api_referencer::get_and_save_json``` function instead of this.
 
 # get_and_save_json
 >
