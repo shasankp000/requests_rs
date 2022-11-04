@@ -7,15 +7,15 @@ This repository will be used in an even larger upcoming project of mine
 https://crates.io/crates/requests_rs
 
 
-# Functions 
+## Functions 
 
-# sync_get
+## sync_get
 >
 > Test function which sends a synchronous get request to any api and returns a response object which can be then parsed into json
 >
  Recommended to use the ```requests_rs::requests::api_referencer::get_and_save_json``` function instead of this.
 
-# get_and_save_json
+## get_and_save_json
 >
 > Sends a get request to an api ,parses the json response and returns the json object
 
@@ -33,7 +33,7 @@ Having ```silent_mode=false``` will pretty-print out the json response(Useful fo
 
 This function is asynchrounous so many get requests can be sent at a time.
 
-# print_and_post_json
+## print_and_post_json
 >
 > Sends a POST request to any api and returns the response json object
 >
@@ -49,7 +49,7 @@ If silent_mode is set to true then the function will silently send a POST reques
 
 If set to false then the function will send a POST request and pretty print out the response json, alongside returning > it as a value as well
 
-# async_download_file 
+## async_download_file 
 >
 > Downloads any file asynchronously
 
