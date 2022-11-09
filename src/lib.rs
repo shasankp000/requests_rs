@@ -1,4 +1,4 @@
-#[macro_use]
+
 
 extern crate serde_json;
 extern crate jsonxf;
@@ -64,13 +64,11 @@ pub mod requests {
 
             let status_code = client.status();
 
-            let text_json = client.text().await?;
+            let return_json: serde_json::value::Value = client.json().await?;
 
-            let return_json = json!(text_json);
+            let raw_json = return_json.to_string();
 
-            let raw_json = json!(text_json);
-
-            let ugly_json = raw_json.as_str().unwrap();
+            let ugly_json = raw_json.as_str();
 
             let mut pretty_json = jsonxf::pretty_print(ugly_json).unwrap();
 
@@ -137,9 +135,9 @@ pub mod requests {
 
             else if silent_mode {
 
-                // print only status codes and save data.
+                // print only status code and saves data.
 
-                if status_code.is_success() {
+                if save && status_code.is_success() {
 
                     print!("{}", "OK".green());
     
@@ -157,6 +155,17 @@ pub mod requests {
                     fs::write(format!("{}/{}.{}", download_path, file_name, file_extension), &mut pretty_json).expect("Failed to write to file!");
                     
             
+                }
+
+                else if !save && status_code.is_success() {
+
+                    // prints only the status code.
+
+                    print!("{}", "OK".green());
+    
+                    println!("[{}]", status_code.as_str().green() );
+    
+                    println!();
                 }
 
                 else if status_code.is_client_error() || status_code.is_server_error() {
@@ -205,29 +214,44 @@ pub mod requests {
         ///
         pub fn print_and_post_json(url: &str, file_path:&str, silent_mode: bool) -> Result<JsonValue, reqwest::Error>{
 
+            control::set_virtual_terminal(true).unwrap();
+
             let content = fs::read_to_string(file_path).expect("Error reading from file!");
 
-            let json = json!(content);
+            let json: serde_json::value::Value = serde_json::from_str(&content).expect("Error reading from content");
 
+            let json_map = json.as_object().unwrap();
 
             let client = reqwest::blocking::Client::new()
                     .post(url)
-                    .json(&json)
+                    .json(&json_map)
                     .send();
-    
+            
             let response = client.unwrap();
 
             let status = response.status();
 
-            let response_text: String = response.text().unwrap();
+            let response_json: serde_json::value::Value = response.json().unwrap();
 
-            let response_json = json!(response_text);
+            let response_text = response_json.to_string();
 
             
             if !silent_mode {
-                
+
                 // execute as intended 
+
+                print!("{}", "Information to be posted: ".green());
+
+                println!();
+
+                println!("{}", content.green());
+
+                println!();
+                
                 if status.is_success() {
+
+                    print!("{}", "Response from api: ".green());
+
                     let ugly_response_str = response_text.as_str();
 
                     let pretty_json_str = jsonxf::pretty_print(ugly_response_str).unwrap();
