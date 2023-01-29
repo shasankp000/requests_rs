@@ -13,7 +13,6 @@ pub mod requests {
         use std::path::Path;
         use std::fs::{self, File};
 
-
         use serde_json::Value as JsonValue;
 
 
@@ -54,8 +53,11 @@ pub mod requests {
         #[tokio::main]
         pub async fn get_and_save_json(url: &str, save: bool, silent_mode: bool) -> Result<JsonValue, reqwest::Error>{
 
-            control::set_virtual_terminal(true).unwrap();
+            #[cfg(windows)] {
+                control::set_virtual_terminal(true).unwrap();
+            }
 
+            
             let client = reqwest::Client::new()
                 .get(url)
                 .send()
@@ -213,9 +215,10 @@ pub mod requests {
         /// If set to false then the function will send a POST request and pretty print out the response json, alongside returning it as a value as well
         ///
         pub fn print_and_post_json(url: &str, file_path:&str, silent_mode: bool) -> Result<JsonValue, reqwest::Error>{
-
-            control::set_virtual_terminal(true).unwrap();
-
+            
+            #[cfg(windows)] {
+                control::set_virtual_terminal(true).unwrap();
+            }
             let content = fs::read_to_string(file_path).expect("Error reading from file!");
 
             let json: serde_json::value::Value = serde_json::from_str(&content).expect("Error reading from content");
@@ -300,6 +303,7 @@ pub mod requests {
 
         use colored::*;
 
+
         /// ### Downloads any file asynchronously
         /// 
         /// ```
@@ -312,7 +316,9 @@ pub mod requests {
         pub async fn async_download_file(url: &str, download_path: &str) -> Result<(), reqwest::Error>{
 
 
-            control::set_virtual_terminal(true).unwrap();
+            #[cfg(windows)] {
+                control::set_virtual_terminal(true).unwrap();
+            }
 
             
             let file_name = Path::new(url).file_stem().unwrap().to_str().unwrap(); // file name
