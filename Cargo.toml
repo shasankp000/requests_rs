@@ -1,14 +1,16 @@
 [package]
 name = "requests_rs"
-version = "0.1.0"
+version = "0.1.6"
 edition = "2021"
 authors = ["shasankp000 <shasankp.14@gmail.com>"]
 description = "A simple library for sending GET/POST requests, included with an async file downloader. Intended for mostly small projects which need to make quick GET/POST requests or download files."
 rust-version = "1.65"
-readme = "readme.md"
-license = "BSD 2-Clause"
+readme = "README.md"
+license = "BSD-2-Clause"
 keywords = ["requests", "file_downloader"]
 categories = ["algorithms"]
+homepage = "https://github.com/shasankp000/requests_rs"
+documentation = "https://github.com/shasankp000/requests_rs#readme"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
