@@ -6,6 +6,10 @@ This repository will be used in an even larger upcoming project of mine
 
 https://crates.io/crates/requests_rs
 
+# Update v0.1.7 
+>
+> Added a new xml file parser (work in progress.)
+
 
 ## Functions 
 
@@ -33,6 +37,22 @@ Having ```silent_mode=false``` will pretty-print out the json response(Useful fo
 
 This function is asynchrounous so many get requests can be sent at a time.
 
+## get_and_save_xml
+>
+> Sends a get request to an xml file url and then returns it as a string.
+>
+> Example 1
+
+```
+use requests_rs::requests::api_referencer::get_and_save_xml;
+
+let xml_data = get_and_save_xml("https://xml-url.com").expect("Some error message!");
+
+println!("{}", xml_data);
+```
+
+
+
 ## print_and_post_json
 >
 > Sends a POST request to any api and returns the response json object
@@ -48,6 +68,7 @@ print_and_post_json("https://api-url.com", "path/to/json_file", true)
 If silent_mode is set to true then the function will silently send a POST request and return the response json object
 
 If set to false then the function will send a POST request and pretty print out the response json, alongside returning > it as a value as well
+
 
 ## async_download_file 
 >
