@@ -1,6 +1,7 @@
 // use std::fs::{self, File};
 
 use requests_rs::requests;
+use colored::*;
 
 // extern crate serde_json;
 // extern crate serde;
@@ -78,7 +79,11 @@ fn main() {
     //println!("{:#?}", a);
 
 
-    requests::api_referencer::get_and_save_json("https://launchermeta.mojang.com/mc/game/version_manifest.json", true, false).expect("Error fetching data!");
+    //requests::api_referencer::get_and_save_json("https://launchermeta.mojang.com/mc/game/version_manifest.json", true, false).expect("Error fetching data!");
+
+    let return_xml_data = requests::api_referencer::get_and_save_xml("https://maven.fabricmc.net/net/fabricmc/fabric-installer/maven-metadata.xml").expect("Error accessing xml url!");
+
+    println!("{}", return_xml_data.as_str().green());
 
     //requests::requests::file_downloader::asymc_download_file("https://www.pixelstalk.net/wp-content/uploads/2016/12/Cloudy-Sky-Background-Widecsreen.jpg", "D:\\rust_projects\\requests").expect("Error downloading file!");
 

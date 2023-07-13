@@ -1,9 +1,9 @@
 [package]
 name = "requests_rs"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2021"
 authors = ["shasankp000 <shasankp.14@gmail.com>"]
-description = "A simple library for sending GET/POST requests, included with an async file downloader. Intended for mostly small projects which need to make quick GET/POST requests or download files."
+description = "A simple library for sending GET/POST requests and parsing jsons, included with an async file downloader. Intended for mostly small projects which need to make quick GET/POST requests or download files."
 rust-version = "1.65"
 readme = "README.md"
 license = "BSD-2-Clause"

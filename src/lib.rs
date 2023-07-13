@@ -6,7 +6,6 @@ extern crate jsonxf;
 
 pub mod requests {
 
-
     pub mod api_referencer {
 
         use colored::*;
@@ -190,6 +189,54 @@ pub mod requests {
             Ok(return_json)
             
         }
+
+        ///Returns XML data from an xml file as a string.
+        /// Usage :
+        /// ```
+        /// use requests_rs::requests::api_referencer::get_and_save_xml;
+        /// 
+        /// Example 1
+        /// 
+        /// let xml_data = get_and_save_xml("https://xml-url.com").expect("Some error message!");
+        /// 
+        /// println!("{}", xml_data);
+        /// 
+        /// ```
+        #[tokio::main]
+        pub async fn get_and_save_xml(url: &str) -> Result<String, reqwest::Error> {
+
+            #[cfg(windows)] {
+                control::set_virtual_terminal(true).unwrap();
+            }
+
+            let client = reqwest::Client::new()
+                .get(url)
+                .send()
+                .await?;
+
+            let mut xml_data = "".to_string();
+
+            if client.status().is_success() {
+                let return_bytes = client.bytes().await?; // get the data in bytes
+
+                xml_data = String::from_utf8(return_bytes.to_vec()).expect("Error parsing xml data from bytes!");
+
+            }
+
+            else {
+                
+                let status_code = client.status();
+
+                println!("{}", status_code.as_str().red());
+
+
+                println!("Url not reachable!");
+            }
+            
+            Ok(xml_data)
+
+        }
+        
 
         
         // had a problem with async POST idk why
